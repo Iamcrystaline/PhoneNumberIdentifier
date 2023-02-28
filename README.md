@@ -1,4 +1,5 @@
 # TelNumberCountryIdentifier
+
 This project will help you to determine possible countries or international organisations by phone number. 
 To do this, just go to http://localhost:8088 and print phone number to check in the text field and press "Identify country" button!
 Application gets phone number information from wiki (https://en.wikipedia.org/wiki/List_of_country_calling_codes#Alphabetical_listing_by_country_or_region)
@@ -18,7 +19,7 @@ General:
 1. Download the project
 2. Go to the project main directory
 
-To run is locally:
+To run it locally:
 1. `docker compose up`
 2. `mvn clean install`
 3. `java -jar ./target/demo-0.0.1-SNAPSHOT.jar`
