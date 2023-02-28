@@ -1,0 +1,11 @@
+services:
+  db:
+    image: mysql:8.0.25
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: phone-numbers
+      MYSQL_USER: crystaline
+      MYSQL_PASSWORD: secret
