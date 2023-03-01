@@ -6,7 +6,7 @@ Application gets phone number information from wiki (https://en.wikipedia.org/wi
 
 ### Notes
 - Sometimes, application can't define unambiguously the country for your phone number. In such cases, it will show you more than 1 country (For example: both Canada and United States country phone codes start with +1). 
-- There are some unassigned phone number (For example: +99912486542)
+- There are some unassigned phone numbers (For example: +99912486542)
 - This application can work correctly only with ITU standard. It specifies that international telephone numbers are represented by prefixing the country code with a + sign
 
 ### Prerequisites
