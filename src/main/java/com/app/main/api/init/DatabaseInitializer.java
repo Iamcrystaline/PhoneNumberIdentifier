@@ -38,18 +38,18 @@ public class DatabaseInitializer {
                     "please check wikiUrl correctness and try again later");
         }
         Element countryCodesTable = WikiDocument.body().select("table").get(1);
-        Elements tableCells = countryCodesTable.select("tr > td");
-        repository.saveAll(extractTableInfo(tableCells));
+        repository.saveAll(extractTableInfo(countryCodesTable));
     }
 
-    private List<CountryInfo> extractTableInfo(Elements tableCells) {
+    private List<CountryInfo> extractTableInfo(Element countryCodesTable) {
+        Elements tableCells = countryCodesTable.select("tr > td");
         Pattern countryCodePattern = Pattern.compile("\\+[1-9][\\d ]*");
-        List<CountryInfo> countriesInfo = new ArrayList<>();
+        List<CountryInfo> countriesInfo = new ArrayList<>(310);
         for (int i = 0; i < tableCells.size(); i += 4) {
+            String countryName = tableCells.get(i).text();
             String countryCodes = tableCells.get(i + 1).text();
             Matcher countryCodesMatcher = countryCodePattern.matcher(countryCodes);
             while (countryCodesMatcher.find()) {
-                String countryName = tableCells.get(i).text();
                 Long countryCode = Long.parseLong(countryCodesMatcher.group().replaceAll("[ +]", ""));
                 countriesInfo.add(new CountryInfo(countryName, countryCode));
             }

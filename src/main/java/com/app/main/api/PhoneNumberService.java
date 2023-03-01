@@ -15,14 +15,14 @@ public class PhoneNumberService {
 
     public List<String> getCountryByPhoneNumber(PhoneNumber phoneNumber) {
         Long countryCode = phoneNumber.getPhoneNumber();
-        List<CountryInfo> countries = repository.findAllByCode(countryCode);
+        List<String> countries = repository.findAllCountriesByCode(countryCode);
         while (countries.isEmpty()) {
             countryCode /= 10;
             if (countryCode == 0) {
                 throw new UnknownPhoneNumberException("Can't identify country for this phone number");
             }
-            countries = repository.findAllByCode(countryCode);
+            countries = repository.findAllCountriesByCode(countryCode);
         }
-        return countries.stream().map(CountryInfo::getCountry).toList();
+        return countries;
     }
 }
