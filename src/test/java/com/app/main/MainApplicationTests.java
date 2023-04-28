@@ -150,8 +150,7 @@ class MainApplicationTests {
         io.restassured.RestAssured.get("api/v1/countryPhoneCode?phoneNumber=" + phoneNumber)
                 .then()
                 .assertThat()
-                .body("$", hasItems("Canada", "United States"))
-                .body("$", hasSize(2));
+                .body(equalTo("Canada, United States"));
     }
 
     @Test
@@ -165,8 +164,7 @@ class MainApplicationTests {
         io.restassured.RestAssured.get("api/v1/countryPhoneCode?phoneNumber=" + phoneNumber)
                 .then()
                 .assertThat()
-                .body("$", hasItems("Pakistan"))
-                .body("$", hasSize(1));
+                .body(equalTo("Pakistan"));
     }
 
     @Test
@@ -180,8 +178,7 @@ class MainApplicationTests {
         io.restassured.RestAssured.get("api/v1/countryPhoneCode?phoneNumber=" + phoneNumber)
                 .then()
                 .assertThat()
-                .body("$", hasItems("US Virgin Islands"))
-                .body("$", hasSize(1));
+                .body(equalTo("US Virgin Islands"));
     }
 
     @Test
@@ -195,8 +192,7 @@ class MainApplicationTests {
         io.restassured.RestAssured.get("api/v1/countryPhoneCode?phoneNumber=" + phoneNumber)
                 .then()
                 .assertThat()
-                .body("$", hasItems("Russia", "Kazakhstan"))
-                .body("$", hasSize(2));
+                .body(equalTo("Kazakhstan, Russia"));
     }
 
     @Test
@@ -210,7 +206,6 @@ class MainApplicationTests {
         io.restassured.RestAssured.get("api/v1/countryPhoneCode?phoneNumber=" + phoneNumber)
                 .then()
                 .assertThat()
-                .body("$", hasItems("Albania"))
-                .body("$", hasSize(1));
+                .body(equalTo("Albania"));
     }
 }

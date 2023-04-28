@@ -1,7 +1,8 @@
 package com.app.main.api.init;
 
-import com.app.main.api.models.CountryInfo;
+import com.app.main.api.models.CountryCodeInfo;
 import com.app.main.api.PhoneNumberRepository;
+import com.app.main.api.models.CountryInfo;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -41,7 +43,7 @@ public class DatabaseInitializer {
         repository.saveAll(extractTableInfo(countryCodesTable));
     }
 
-    private List<CountryInfo> extractTableInfo(Element countryCodesTable) {
+    private List<CountryCodeInfo> extractTableInfo(Element countryCodesTable) {
         Elements tableCells = countryCodesTable.select("tr > td");
         Pattern countryCodePattern = Pattern.compile("\\+[1-9][\\d ]*");
         List<CountryInfo> countriesInfo = new ArrayList<>(310);
@@ -54,6 +56,14 @@ public class DatabaseInitializer {
                 countriesInfo.add(new CountryInfo(countryName, countryCode));
             }
         }
-        return countriesInfo;
+        return countriesInfo.stream()
+                .collect(Collectors.groupingBy(CountryInfo::getCode))
+                .entrySet()
+                .stream()
+                .map(countryInfo -> new CountryCodeInfo(countryInfo.getKey(), countryInfo.getValue()
+                        .stream()
+                        .map(CountryInfo::getCountry)
+                        .collect(Collectors.joining(", "))))
+                .toList();
     }
 }
